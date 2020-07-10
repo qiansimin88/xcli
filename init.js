@@ -68,6 +68,7 @@ const donwGitRes = ( templateName = 'templateName' ) => {
                 }else {
                     spinner.stop()
                     updatePackageName(createTemplatePath, templateName)
+                    g(`${templateName}创建成功，请使用 ls查看创建的模板`)
                 }
             })
         }
