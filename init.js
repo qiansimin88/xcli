@@ -54,7 +54,6 @@ program.version(packageJson.version)
   program.parse(process.argv);
 
 const donwGitRes = ( templateName = 'templateName' ) => {
-  // 本地保存的地址
     const stroeTemplatePath = resolve( __dirname, '../template' )
  // 生成 template 地址
     const createTemplatePath = resolve('./', templateName )
@@ -66,7 +65,7 @@ const donwGitRes = ( templateName = 'templateName' ) => {
                 if (err) {
                     std(1, '本地复制模板出现了错误' + err )
                 }else {
-                    spinner.stop()
+                    spinner.succeed('创建成功')
                     updatePackageName(createTemplatePath, templateName)
                     g(`${templateName}创建成功，请使用 ls查看创建的模板`)
                 }
