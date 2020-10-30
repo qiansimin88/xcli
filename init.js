@@ -14,8 +14,10 @@ const ora = require( 'ora' )
 const spinner = ora(  chalk.green.bold(' downloading template!! '))
 
 const GITURL = {
-  'react-admin-v3': 'github:qiansimin88/react-admin-antdesign-pro',
-  'react-admin-v4': 'direct:http://gitlab.xinc818.cn/qiansimin/react-admin-antdesign-pro.git'
+  'react-admin-v3': 'direct:http://gitlab.xinc818.cn/qiansimin/react-admin-antdesign-pro.git',
+  'react-admin-v4': 'direct:http://gitlab.xinc818.cn/qiansimin/xcli-react-admin-antdv4.git',
+  'vue-h5': 'direct:http://gitlab.xinc818.cn/hanghaosai/h5-template.git',
+  'react-wechat-mini-programs': 'direct:http://gitlab.xinc818.cn/liuye/mini-template.git'
 }
 
 
@@ -41,7 +43,7 @@ program.version(packageJson.version)
                 'react-admin-v3',
                 'react-admin-v4',
                 'react-web',
-                'react-h5',
+                'vue-h5',
                 'react-next',
                 'react-wechat-mini-programs'
               ]
@@ -54,6 +56,12 @@ program.version(packageJson.version)
         } else if (type === 'react-admin-v4') {
           spinner.start();
           donwGitRes(GITURL['react-admin-v4'], name)
+        } else if (type === 'vue-h5') {
+          spinner.start();
+          donwGitRes(GITURL['vue-h5'], name)
+        } else if (type === 'react-wechat-mini-programs') {
+          spinner.start();
+          donwGitRes(GITURL['react-wechat-mini-programs'], name)
         }
         else {
           std(0, '敬请期待，暂未开放该模板')
@@ -63,14 +71,14 @@ program.version(packageJson.version)
   program.parse(process.argv);
 
 const donwGitRes = (gitURL, templateName = 'templateName' ) => {
-    const stroeTemplatePath = resolve( __dirname, '../template' )
+    const stroeTemplatePath = resolve( __dirname, './template', templateName )
  // 生成 template 地址
     const createTemplatePath = resolve('./', templateName )
-    downGit(gitURL, 'template', { clone: true }, err => {
+    downGit(gitURL, stroeTemplatePath, { clone: true }, err => {
         if (err) {
             std(1, '远程模板仓库出现了错误' + err )
         }else {
-            fs.copy('template', createTemplatePath, { clobber : true }, ( err ) => {
+            fs.copy(stroeTemplatePath, createTemplatePath, { clobber : true }, ( err ) => {
                 if (err) {
                     std(1, '本地复制模板出现了错误' + err )
                 }else {
