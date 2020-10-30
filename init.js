@@ -13,10 +13,15 @@ const packageJson = require('./package.json');
 const ora = require( 'ora' )
 const spinner = ora(  chalk.green.bold(' downloading template!! '))
 
+const GITURL = {
+  'react-admin-v3': 'github:qiansimin88/react-admin-antdesign-pro',
+  'react-admin-v4': 'direct:http://gitlab.xinc818.cn/qiansimin/react-admin-antdesign-pro.git'
+}
+
 
 program.version(packageJson.version)
   .usage('<command> [options]')
-  .option('--info', 'print environment debug info')
+  .option('--info', 'print environment debåug info')
   .arguments('init <project-name>')
   .action(name => {
     if(name !== 'init') {
@@ -33,7 +38,8 @@ program.version(packageJson.version)
               name: 'type',
               message: '选择一个模板类型',
               choices: [
-                'react-admin',
+                'react-admin-v3',
+                'react-admin-v4',
                 'react-web',
                 'react-h5',
                 'react-next',
@@ -42,26 +48,29 @@ program.version(packageJson.version)
           }
       ]).then( all => {
         const { type } = all
-        if(type === 'react-admin') {
+        if(type === 'react-admin-v3') {
           spinner.start();
-          donwGitRes(name)
-        }else {
+          donwGitRes(GITURL['react-admin-v3'], name)
+        } else if (type === 'react-admin-v4') {
+          spinner.start();
+          donwGitRes(GITURL['react-admin-v4'], name)
+        }
+        else {
           std(0, '敬请期待，暂未开放该模板')
         }
       })
   })
-
   program.parse(process.argv);
 
-const donwGitRes = ( templateName = 'templateName' ) => {
+const donwGitRes = (gitURL, templateName = 'templateName' ) => {
     const stroeTemplatePath = resolve( __dirname, '../template' )
  // 生成 template 地址
     const createTemplatePath = resolve('./', templateName )
-    downGit('github:qiansimin88/react-admin-antdesign-pro', stroeTemplatePath, err => {
+    downGit(gitURL, 'template', { clone: true }, err => {
         if (err) {
             std(1, '远程模板仓库出现了错误' + err )
         }else {
-            fs.copy( stroeTemplatePath, createTemplatePath, { clobber : true }, ( err ) => {
+            fs.copy('template', createTemplatePath, { clobber : true }, ( err ) => {
                 if (err) {
                     std(1, '本地复制模板出现了错误' + err )
                 }else {
