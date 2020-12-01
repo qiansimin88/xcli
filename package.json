@@ -1,6 +1,6 @@
 {
   "name": "@xc/xox",
-  "version": "1.2.1",
+  "version": "1.2.3",
   "description": "简小的下载各种业务类型模板的脚手架下载工具,中文名：叉哦叉",
   "main": "bin/index.js",
   "bin": {

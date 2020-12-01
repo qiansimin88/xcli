@@ -19,7 +19,7 @@ xox init [yourProjectName👋👋👋]
     项目启动方式见各模板package.json, 有问题找相应的模板创建者，地址中间的名字即是创建人
     自己可以clone仓库代码，添加自己任意的合理代码 
 
-- **adminv3(后台antdV3)** - `http://gitlab.xinc818.cn/qiansimin/react-admin-antdesign-pro`
-- **adminv4(后台antdv4)** - `http://gitlab.xinc818.cn/qiansimin/xcli-react-admin-antdv4`
-- **vueh5(vue版本H5)** - `http://gitlab.xinc818.cn/hanghaosai/h5-template`
-- **wechat-mini-programs(小程序)** - `http://gitlab.xinc818.cn/liuye/mini-template`
+- **adminv3(后台antdV3)** - `http://gitlab.xinc818.com/qiansimin/react-admin-antdesign-pro`
+- **adminv4(后台antdv4)** - `http://gitlab.xinc818.com/qiansimin/xcli-react-admin-antdv4`
+- **vueh5(vue版本H5)** - `http://gitlab.xinc818.com/hanghaosai/h5-template`
+- **wechat-mini-programs(小程序正在弄，别急)** - `http://gitlab.xinc818.com/liuye/mini-template`

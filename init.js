@@ -14,10 +14,10 @@ const ora = require( 'ora' )
 const spinner = ora(  chalk.green.bold(' downloading template!! '))
 
 const GITURL = {
-  'react-admin-v3': 'direct:http://gitlab.xinc818.cn/qiansimin/react-admin-antdesign-pro.git',
-  'react-admin-v4': 'direct:http://gitlab.xinc818.cn/qiansimin/xcli-react-admin-antdv4.git',
-  'vue-h5': 'direct:http://gitlab.xinc818.cn/hanghaosai/h5-template.git',
-  'react-wechat-mini-programs': 'direct:http://gitlab.xinc818.cn/liuye/mini-template.git'
+  'react-admin-v3': 'direct:http://gitlab.xinc818.com/qiansimin/react-admin-antdesign-pro.git',
+  'react-admin-v4': 'direct:http://gitlab.xinc818.com/qiansimin/xcli-react-admin-antdv4.git',
+  'vue-h5': 'direct:http://gitlab.xinc818.com/hanghaosai/h5-template.git',
+  'react-wechat-mini-programs': 'direct:http://gitlab.xinc818.com/liuye/mini-template.git'
 }
 
 
