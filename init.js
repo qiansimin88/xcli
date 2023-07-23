@@ -6,11 +6,12 @@ const downGit = require( 'download-git-repo' )
 const envinfo = require('envinfo')
 const shell = require('shelljs');
 const { spawn, execSync } = require('child_process');
-const { resolve } = require( 'path' )
+const { resolve, join } = require( 'path' )
 const r = chalk.red.bold
 const g = chalk.green.bold
 const packageJson = require('./package.json');
-const ora = require( 'ora' )
+const ora = require( 'ora' );
+const { default: inquirer } = require('inquirer');
 const spinner = ora(  chalk.green.bold(' downloading template!! '))
 
 const GITURL = {
@@ -70,10 +71,25 @@ program.version(packageJson.version)
   })
   program.parse(process.argv);
 
-const donwGitRes = (gitURL, templateName = 'templateName' ) => {
+const donwGitRes = async (gitURL, templateName = 'templateName' ) => {
     const stroeTemplatePath = resolve( __dirname, './template', templateName )
  // 生成 template 地址
-    const createTemplatePath = resolve('./', templateName )
+    // const createTemplatePath = resolve('./', templateName )
+    const createTemplatePath = join(process.cwd(), templateName);
+
+    if (fs.existsSync( createTemplatePath )) {
+      const {
+        force
+      } = await inquirer.prompt({
+        type: 'confirm',
+        name: 'force',
+        message: '模板已存在,是否覆盖?',
+        default: false
+      })
+      
+      force ? fs.removeSync(createTemplatePath) :  std(1, '不做操作退出命令行')
+    }
+
     downGit(gitURL, stroeTemplatePath, { clone: true }, err => {
         if (err) {
             std(1, '远程模板仓库出现了错误' + err )
@@ -85,6 +101,10 @@ const donwGitRes = (gitURL, templateName = 'templateName' ) => {
                     spinner.succeed('创建成功')
                     updatePackageName(createTemplatePath, templateName)
                     g(`${templateName}创建成功，请使用 ls查看创建的模板`)
+                     // 添加引导信息(每个模版可能都不一样，要按照模版具体情况来)
+                    g(`**\ncd ${templateName}**`)
+                    g('npm i')
+                    g('npm start\n')
                 }
             })
         }
