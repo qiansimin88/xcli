@@ -23,7 +23,7 @@
     "download-git-repo": "^3.0.2",
     "fs-extra": "^8.1.0",
     "inquirer": "7.0.6",
-    "ora": "^4.0.3",
+    "ora": "4.0.3",
     "create-react-app": "^3.4.1",
     "envinfo": "^7.5.1",
     "shelljs": "^0.8.4"
