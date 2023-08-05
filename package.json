@@ -1,5 +1,5 @@
 {
-  "name": "xox",
+  "name": "xox-cli",
   "version": "1.0.0",
   "description": "简小的下载各种业务类型模板的脚手架下载工具,中文名：叉哦叉",
   "main": "bin/index.js",
