@@ -15,10 +15,12 @@ const { default: inquirer } = require('inquirer');
 const spinner = ora(  chalk.green.bold(' downloading template!! '))
 
 const GITURL = {
-  'react-admin-v3': 'direct:http://gitlab.xinc818.com/qiansimin/react-admin-antdesign-pro.git',
-  'react-admin-v4': 'direct:http://gitlab.xinc818.com/qiansimin/xcli-react-admin-antdv4.git',
-  'vue-h5': 'direct:http://gitlab.xinc818.com/hanghaosai/h5-template.git',
-  'react-wechat-mini-programs': 'direct:http://gitlab.xinc818.com/liuye/mini-template.git'
+    'eslint-react-vite-ts-template': 'https://github.com:qiansimin88/eslint-react-vite-ts-template',
+    'null': 'null'
+  // 'react-admin-v3': 'direct:http://gitlab.xinc818.com/qiansimin/react-admin-antdesign-pro.git',
+  // 'react-admin-v4': 'direct:http://gitlab.xinc818.com/qiansimin/xcli-react-admin-antdv4.git',
+  // 'vue-h5': 'direct:http://gitlab.xinc818.com/hanghaosai/h5-template.git',
+  // 'react-wechat-mini-programs': 'direct:http://gitlab.xinc818.com/liuye/mini-template.git'
 }
 
 
@@ -40,29 +42,14 @@ program.version(packageJson.version)
               type: 'rawlist',
               name: 'type',
               message: '选择一个模板类型',
-              choices: [
-                'react-admin-v3',
-                'react-admin-v4',
-                'react-web',
-                'vue-h5',
-                'react-next',
-                'react-wechat-mini-programs'
-              ]
+              choices: Object.keys(GITURL)
           }
       ]).then( all => {
         const { type } = all
-        if(type === 'react-admin-v3') {
+
+        if (type) {
           spinner.start();
-          donwGitRes(GITURL['react-admin-v3'], name)
-        } else if (type === 'react-admin-v4') {
-          spinner.start();
-          donwGitRes(GITURL['react-admin-v4'], name)
-        } else if (type === 'vue-h5') {
-          spinner.start();
-          donwGitRes(GITURL['vue-h5'], name)
-        } else if (type === 'react-wechat-mini-programs') {
-          spinner.start();
-          donwGitRes(GITURL['react-wechat-mini-programs'], name)
+          donwGitRes(GITURL[type], name)
         }
         else {
           std(0, '敬请期待，暂未开放该模板')
@@ -90,7 +77,7 @@ const donwGitRes = async (gitURL, templateName = 'templateName' ) => {
       force ? fs.removeSync(createTemplatePath) :  std(1, '不做操作退出命令行')
     }
 
-    downGit(gitURL, stroeTemplatePath, { clone: true }, err => {
+    downGit(gitURL, stroeTemplatePath, err => {
         if (err) {
             std(1, '远程模板仓库出现了错误' + err )
         }else {
