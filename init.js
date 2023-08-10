@@ -48,7 +48,6 @@ program.version(packageJson.version)
         const { type } = all
 
         if (type) {
-          spinner.start();
           donwGitRes(GITURL[type], name)
         }
         else {
@@ -59,41 +58,45 @@ program.version(packageJson.version)
   program.parse(process.argv);
 
 const donwGitRes = async (gitURL, templateName = 'templateName' ) => {
-    const stroeTemplatePath = resolve( __dirname, './template', templateName )
+    // const stroeTemplatePath = resolve( __dirname, './template', templateName )
  // 生成 template 地址
-    // const createTemplatePath = resolve('./', templateName )
     const createTemplatePath = join(process.cwd(), templateName);
 
     if (fs.existsSync( createTemplatePath )) {
       const {
         force
-      } = await inquirer.prompt({
+      } = await iqr.prompt({
         type: 'confirm',
         name: 'force',
         message: '模板已存在,是否覆盖?',
-        default: false
       })
-      
       force ? fs.removeSync(createTemplatePath) :  std(1, '不做操作退出命令行')
     }
-
-    downGit(gitURL, stroeTemplatePath, err => {
+    spinner.start();
+    downGit(gitURL, createTemplatePath, err => {
         if (err) {
             std(1, '远程模板仓库出现了错误' + err )
         }else {
-            fs.copy(stroeTemplatePath, createTemplatePath, { clobber : true }, ( err ) => {
-                if (err) {
-                    std(1, '本地复制模板出现了错误' + err )
-                }else {
-                    spinner.succeed('创建成功')
-                    updatePackageName(createTemplatePath, templateName)
-                    g(`${templateName}创建成功，请使用 ls查看创建的模板`)
-                     // 添加引导信息(每个模版可能都不一样，要按照模版具体情况来)
-                    g(`**\ncd ${templateName}**`)
-                    g('npm i')
-                    g('npm start\n')
-                }
-            })
+          spinner.succeed('创建成功')
+          updatePackageName(createTemplatePath, templateName)
+          console.log(g(`${templateName}创建成功，请使用 ls查看创建的模板`))
+            // 添加引导信息(每个模版可能都不一样，要按照模版具体情况来)
+          console.log(g(`** \ncd ${templateName}`))
+          console.log(g('npm i'))
+          console.log(g('npm start\n**'))
+            // fs.copy(stroeTemplatePath, createTemplatePath, { clobber : true }, ( err ) => {
+            //     if (err) {
+            //         std(1, '本地复制模板出现了错误' + err )
+            //     }else {
+            //         spinner.succeed('创建成功')
+            //         updatePackageName(createTemplatePath, templateName)
+            //         g(`${templateName}创建成功，请使用 ls查看创建的模板`)
+            //          // 添加引导信息(每个模版可能都不一样，要按照模版具体情况来)
+            //         g(`**\ncd ${templateName}**`)
+            //         g('npm i')
+            //         g('npm start\n')
+            //     }
+            // })
         }
     })
 }
